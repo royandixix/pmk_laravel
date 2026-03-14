@@ -50,7 +50,7 @@ new class extends Component {
 
             {{-- Tombol Google Maps --}}
             
-                href="https://maps.google.com/maps?q=-5.140270,119.516144&z=17"
+                href="https://www.google.com/maps/place/-5.140269,119.516142/@-5.140269,119.516142,17z"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 mb-8 lg:mb-10 px-4 py-2 rounded-lg

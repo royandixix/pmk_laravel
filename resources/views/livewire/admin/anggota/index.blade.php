@@ -1,20 +1,16 @@
 <?php
-
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 use App\Models\Anggota;
 
 new #[Layout('layouts.app')] class extends Component {
-
     public $search = '';
 
     public function with()
     {
-        $query = Anggota::query()
-            ->when($this->search, function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('phone', 'like', '%' . $this->search . '%');
-            });
+        $query = Anggota::query()->when($this->search, function ($q) {
+            $q->where('name', 'like', '%' . $this->search . '%')->orWhere('phone', 'like', '%' . $this->search . '%');
+        });
 
         return [
             'anggota' => $query->latest()->get(),
@@ -27,51 +23,32 @@ new #[Layout('layouts.app')] class extends Component {
     }
 };
 ?>
+
 <div class="max-w-7xl mx-auto space-y-8">
-
-    {{-- HEADER --}}
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
-    
-    {{-- KIRI: Ikon + Heading + Subheading --}}
-    <div class="flex items-center gap-3">
-        {{-- Flux Icon --}}
-        <flux:icon.users class="size-6 text-accent dark:text-accent-foreground" />
+        <div class="flex items-center gap-3">
+            <flux:icon.users class="size-6 text-accent dark:text-accent-foreground" />
+            <div>
+                <flux:heading size="xl" level="1" class="!font-bold tracking-tight">Data Anggota</flux:heading>
+                <flux:subheading class="text-zinc-500">Manajemen anggota PMK Universitas Dipa Makassar</flux:subheading>
+            </div>
+        </div>
 
-        <div>
-            <flux:heading size="xl" level="1" class="!font-bold tracking-tight">
-                Data Anggota
-            </flux:heading>
-            <flux:subheading class="text-zinc-500">
-                Manajemen anggota PMK Universitas Dipa Makassar
-            </flux:subheading>
+        <div class="flex gap-3">
+            <flux:button href="{{ route('anggota.pdf') }}" variant="outline" icon="printer" target="_blank">Cetak PDF
+            </flux:button>
+            <flux:button href="/admin/anggota/tambah" variant="primary" icon="plus" wire:navigate>Tambah
+            </flux:button>
         </div>
     </div>
 
-    {{-- KANAN: Tombol Tambah --}}
-    <flux:button 
-        href="/admin/anggota/tambah" 
-        variant="primary" 
-        icon="plus"
-        wire:navigate
-    >
-        Tambah
-    </flux:button>
-</div>
-
-    {{-- SEARCH --}}
     <div class="max-w-md">
-        <flux:input 
-            wire:model.live.debounce.300ms="search"
-            icon="magnifying-glass"
-            placeholder="Cari nama atau telepon..."
-            clearable
-        />
+        <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass"
+            placeholder="Cari nama atau telepon..." clearable />
     </div>
 
-    {{-- TABLE --}}
     <div class="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800">
         <flux:table>
-
             <flux:table.columns>
                 <flux:table.column class="pl-6">Anggota</flux:table.column>
                 <flux:table.column>Detail</flux:table.column>
@@ -82,24 +59,15 @@ new #[Layout('layouts.app')] class extends Component {
 
             <flux:table.rows>
                 @forelse($anggota as $item)
-                    <flux:table.row 
-                        :key="$item->id"
-                        class="group hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition"
-                    >
-
-                        {{-- PROFIL --}}
+                    <flux:table.row :key="$item->id"
+                        class="group hover:bg-zinc-50 dark:hover:bg-zinc-800/40 transition">
                         <flux:table.cell class="pl-6 flex items-center gap-4">
-                            <flux:avatar 
-                                :src="$item->photo ? asset('storage/' . $item->photo) : null"
+                            <flux:avatar :src="$item->photo ? asset('storage/' . $item->photo) : null"
                                 :initials="collect(explode(' ', $item->name))->map(fn($n) => mb_substr($n, 0, 1))->take(2)->join('')"
-                                size="md"
-                            />
-                            <p class="font-semibold text-zinc-900 dark:text-zinc-100">
-                                {{ $item->name }}
-                            </p>
+                                size="md" />
+                            <p class="font-semibold text-zinc-900 dark:text-zinc-100">{{ $item->name }}</p>
                         </flux:table.cell>
 
-                        {{-- DETAIL (Gender + Umur + Tanggal Lahir) --}}
                         <flux:table.cell>
                             <div class="flex flex-col text-sm text-zinc-600 dark:text-zinc-400">
                                 <span>{{ $item->gender }} • {{ $item->umur }} Tahun</span>
@@ -107,61 +75,37 @@ new #[Layout('layouts.app')] class extends Component {
                             </div>
                         </flux:table.cell>
 
-                        {{-- JENIS --}}
                         <flux:table.cell>
-                            <flux:badge 
-                                :color="$item->jenis == 'biasa' ? 'green' : 'indigo'"
-                                variant="subtle"
-                                size="sm"
-                            >
-                                {{ ucfirst(str_replace('_',' ',$item->jenis)) }}
+                            <flux:badge :color="$item->jenis == 'biasa' ? 'green' : 'indigo'" variant="subtle"
+                                size="sm">
+                                {{ ucfirst(str_replace('_', ' ', $item->jenis)) }}
                             </flux:badge>
                         </flux:table.cell>
 
-                        {{-- TELEPON --}}
                         <flux:table.cell>
-                            <span class="font-mono text-sm">
-                                {{ $item->phone }}
-                            </span>
+                            <span class="font-mono text-sm">{{ $item->phone }}</span>
                         </flux:table.cell>
 
-                        {{-- AKSI --}}
                         <flux:table.cell class="pr-6">
                             <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition">
-                                <flux:button 
-                                    href="/admin/anggota/edit/{{ $item->id }}"
-                                    variant="ghost"
-                                    icon="pencil-square"
-                                    size="sm"
-                                    wire:navigate
-                                />
-                                <flux:button 
-                                    wire:click="delete({{ $item->id }})"
-                                    wire:confirm="Hapus {{ $item->name }}?"
-                                    variant="ghost"
-                                    icon="trash"
-                                    size="sm"
-                                    color="red"
-                                />
+                                <flux:button href="/admin/anggota/edit/{{ $item->id }}" variant="ghost"
+                                    icon="pencil-square" size="sm" wire:navigate />
+                                <flux:button wire:click="delete({{ $item->id }})"
+                                    wire:confirm="Hapus {{ $item->name }}?" variant="ghost" icon="trash"
+                                    size="sm" color="red" />
                             </div>
                         </flux:table.cell>
-
                     </flux:table.row>
                 @empty
                     <flux:table.row>
                         <flux:table.cell colspan="5" class="py-20 text-center">
-                            <flux:heading size="lg">
-                                Tidak Ada Data
-                            </flux:heading>
-                            <flux:subheading class="text-zinc-500">
-                                Data anggota belum tersedia atau tidak ditemukan.
+                            <flux:heading size="lg">Tidak Ada Data</flux:heading>
+                            <flux:subheading class="text-zinc-500">Data anggota belum tersedia atau tidak ditemukan.
                             </flux:subheading>
                         </flux:table.cell>
                     </flux:table.row>
                 @endforelse
             </flux:table.rows>
-
         </flux:table>
     </div>
-
 </div>
