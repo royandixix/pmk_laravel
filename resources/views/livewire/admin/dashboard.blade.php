@@ -31,17 +31,25 @@ new class extends Component {
             ->orderBy('bulan')
             ->get();
 
-        $this->chartLabels = $monthly->pluck('bulan')->map(function ($m) {
-            return Carbon::create()->month($m)->translatedFormat('M');
-        });
+        $this->chartLabels = $monthly
+            ->pluck('bulan')
+            ->map(function ($m) {
+                return Carbon::create()->month((int) $m)->translatedFormat('M');
+            })
+            ->values()
+            ->toArray();
 
-        $this->chartData = $monthly->pluck('total');
+        $this->chartData = $monthly
+            ->pluck('total')
+            ->values()
+            ->toArray();
     }
 };
 
 ?>
 
 <div>
+
 <style>
 .db-card {
     background: #111318;
@@ -50,32 +58,40 @@ new class extends Component {
     padding: 1.25rem 1.5rem;
     transition: all .2s ease;
 }
+
 .db-card:hover {
     border-color: rgba(255,255,255,0.15);
     transform: translateY(-3px);
 }
+
 .db-stat {
     font-size: 1.8rem;
     font-weight: 700;
     color: #f1f5f9;
 }
+
 .db-label {
     font-size: 0.8rem;
     color: #64748b;
 }
 
 @media (max-width: 640px) {
+
     .db-stat {
         font-size: 1.4rem;
     }
+
     .db-label {
         font-size: 0.7rem;
     }
+
     .db-card {
         padding: 1rem;
     }
+
 }
 </style>
+
 
 <div class="flex justify-between items-end mb-8">
     <div>
@@ -87,6 +103,7 @@ new class extends Component {
         </h1>
     </div>
 </div>
+
 
 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
 
@@ -112,43 +129,58 @@ new class extends Component {
 
 </div>
 
+
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
     <div class="db-card">
+
         <h3 class="text-sm font-semibold text-slate-200 mb-4">
             Pertumbuhan (Line)
         </h3>
+
         <div class="h-64">
             <canvas id="lineChart"></canvas>
         </div>
+
     </div>
 
+
     <div class="db-card">
+
         <h3 class="text-sm font-semibold text-slate-200 mb-4">
             Statistik Bulanan (Bar)
         </h3>
+
         <div class="h-64">
             <canvas id="barChart"></canvas>
         </div>
+
     </div>
 
+
     <div class="db-card">
+
         <h3 class="text-sm font-semibold text-slate-200 mb-4">
             Status Anggota (Donut)
         </h3>
+
         <div class="h-64">
             <canvas id="donutChart"></canvas>
         </div>
+
     </div>
 
 </div>
 
 </div>
 
+
 @push('scripts')
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
 document.addEventListener('livewire:navigated', initCharts);
 document.addEventListener('DOMContentLoaded', initCharts);
 
@@ -165,9 +197,12 @@ function initCharts() {
     if (!lineEl || !barEl || !donutEl) return;
 
     window.lineChartInstance = new Chart(lineEl, {
+
         type: 'line',
+
         data: {
             labels: @json($chartLabels),
+
             datasets: [{
                 label: 'Anggota',
                 data: @json($chartData),
@@ -178,17 +213,23 @@ function initCharts() {
                 pointRadius: 4
             }]
         },
+
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: { legend: { display: false } }
         }
+
     });
 
+
     window.barChartInstance = new Chart(barEl, {
+
         type: 'bar',
+
         data: {
             labels: @json($chartLabels),
+
             datasets: [{
                 label: 'Total Pendaftar',
                 data: @json($chartData),
@@ -196,39 +237,66 @@ function initCharts() {
                 borderRadius: 4
             }]
         },
+
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+
+            plugins: {
+                legend: { display: false }
+            },
+
             scales: {
-                y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } },
-                x: { grid: { display: false } }
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255,255,255,0.05)' }
+                },
+
+                x: {
+                    grid: { display: false }
+                }
             }
+
         }
+
     });
 
+
     window.donutChartInstance = new Chart(donutEl, {
+
         type: 'doughnut',
+
         data: {
             labels: ['Aktif','Nonaktif'],
+
             datasets: [{
                 data: [
                     {{ $anggotaAktif }},
                     {{ $totalAnggota - $anggotaAktif }}
                 ],
+
                 backgroundColor: ['#2dd4bf','#334155'],
                 borderWidth: 0
             }]
         },
+
         options: {
             responsive: true,
             maintainAspectRatio: false,
             cutout: '70%',
+
             plugins: {
-                legend: { position: 'bottom', labels: { color: '#94a3b8' } }
+                legend: {
+                    position: 'bottom',
+                    labels: { color: '#94a3b8' }
+                }
             }
         }
+
     });
+
 }
+
 </script>
+
 @endpush
