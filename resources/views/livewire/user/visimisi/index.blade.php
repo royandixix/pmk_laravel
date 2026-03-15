@@ -45,27 +45,8 @@ new class extends Component {
             <img
                 src="{{ asset('img/pengurus/pengurus terpilih-min.JPG') }}"
                 alt="PMK Universitas Dipa Makassar"
-                class="rounded-lg shadow-2xl w-full max-w-lg mb-4 border border-white/10"
+                class="rounded-lg shadow-2xl w-full max-w-lg mb-8 border border-white/10"
             />
-
-            {{-- Tombol Google Maps --}}
-            
-                href="https://www.google.com/maps/place/-5.140269,119.516142/@-5.140269,119.516142,17z"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 mb-8 lg:mb-10 px-4 py-2 rounded-lg
-                       bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400
-                       text-gray-400 hover:text-indigo-400 text-sm transition-all duration-200"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                </svg>
-                Buka di Google Maps
-            </a>
 
             <div class="text-white w-full">
                 <h3 class="text-xl text-indigo-400 uppercase tracking-wide mb-6">Jumlah Anggota PMK</h3>
@@ -139,7 +120,7 @@ new class extends Component {
                         </svg>
                     </div>
                     <div>
-                        <dt class="text-xl text-white font-semibold">Misi 2</dt>
+                        <dt class="text-xl text-white font-semibold">Misi</dt>
                         <dd class="mt-2 text-gray-400 leading-relaxed">
                             Membina serta menyakinkan mahasiswa Kristen untuk menerima Kristus
                             sebagai Tuhan dan Juruselamat secara pribadi dan membina mahasiswa

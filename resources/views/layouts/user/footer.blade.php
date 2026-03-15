@@ -25,8 +25,8 @@
             <div>
                 <h3 class="font-bold text-lg mb-4">Alamat</h3>
                 <div class="text-gray-300 space-y-1">
-                    <p>Jl. Telegrap III No.97, Paccerakkang</p>
-                    <p>Kec. Biringkanaya, Kota Makassar</p>
+                    <p>BTP, Perumahan Pesona Anindya Blok A2, No.01/p>
+                   
                 </div>
             </div>
 
