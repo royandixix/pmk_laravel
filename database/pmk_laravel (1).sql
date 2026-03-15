@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 14, 2026 at 02:48 PM
+-- Generation Time: Mar 15, 2026 at 04:37 PM
 -- Server version: 8.0.44
 -- PHP Version: 8.3.30
 
@@ -65,16 +65,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab', 'i:1;', 1773410498),
-('laravel-cache-356a192b7913b04c54574d18c28d46e6395428ab:timer', 'i:1773410498;', 1773410498),
-('laravel-cache-79516052659dec016674c717314a118a', 'i:1;', 1772279274),
-('laravel-cache-79516052659dec016674c717314a118a:timer', 'i:1772279274;', 1772279274),
-('laravel-cache-c525a5357e97fef8d3db25841c86da1a', 'i:1;', 1773475903),
-('laravel-cache-c525a5357e97fef8d3db25841c86da1a:timer', 'i:1773475903;', 1773475903),
-('laravel-cache-e7b09c961e8797b424f28e339a819ccc', 'i:5;', 1773410365),
-('laravel-cache-e7b09c961e8797b424f28e339a819ccc:timer', 'i:1773410365;', 1773410365),
-('laravel-cache-randiroyandi@gmail.com|127.0.0.1', 'i:5;', 1773410365),
-('laravel-cache-randiroyandi@gmail.com|127.0.0.1:timer', 'i:1773410365;', 1773410365);
+('laravel-cache-4cfb53f747589aa043e848b8fc035d1c', 'i:1;', 1773591322),
+('laravel-cache-4cfb53f747589aa043e848b8fc035d1c:timer', 'i:1773591322;', 1773591322);
 
 -- --------------------------------------------------------
 
@@ -174,6 +166,13 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('randiroyandi@gmail.com', '$2y$12$N97ZREPq.lc0W8YDOc6.oujyJnMQY1dfJksGN0n6j/224dyyeebc.', '2026-03-15 05:43:27');
+
 -- --------------------------------------------------------
 
 --
@@ -194,7 +193,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('gKynwDzRKCZafLtIEBzLmMvZ2cK33xx1s93omA8C', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVzlvbUpsU3dLMlMwM29heEt5SHpEb1YxZ2hZejFHNGZPTGgzOGxEeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9fQ==', 1773499601);
+('1taqgqJBI49k0LaFmwnr1oRnSeGmusI920l3G5Lz', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiMHhvdGNsVkxSandzRTZ0dDIybWJqS0lRZHNoenN5RnFmY1d2a3hzeCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MTMyOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcmVzZXQtcGFzc3dvcmQvNGNhMmNmYjEwMzdlMDFiNjI3MjczMmMzMDAxY2FjMzg2OTJhMzdlYzkyZWE1YTA1OWU0ZmQzMGM2ZTU2NWU0NT9lbWFpbD1yYW5kaXJveWFuZGklNDBnbWFpbC5jb20iO3M6NToicm91dGUiO3M6MTQ6InBhc3N3b3JkLnJlc2V0Ijt9fQ==', 1773582284),
+('fxqnlglcnVjpHJz9s2NpDw5FyKlKtnJAGmbimGnf', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRkV1UWYyVU5vVE9aaE9WUzVhYnhkQnJTS2VOVVdJOG9Gd3doZ0ZMQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9fQ==', 1773592252),
+('gUk4lkAY8uoDwMQoQmCTD7gxHO2wuw47MBJZK8xO', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOXhtcUFzNU9uUjRuam1rSGU5N3p1VnRjSnlpY3hBMmlRb1lMSXlUbiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9fQ==', 1773592417);
 
 -- --------------------------------------------------------
 
@@ -221,7 +222,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', NULL, '$2y$12$j.P5lKIYMksyOMFfkhZTJu8uz.wnQ97BOHHDtjCgof3Y0nylCgYvW', NULL, NULL, NULL, 'z8mn1S1CirrabfmlAbYoc2nZoQOKSJUeGi6wvWOCZ1eOAN8fW9IGF0gMcei2', '2026-02-24 11:29:55', '2026-02-24 11:29:55');
+(1, 'admin', 'multimediapmkundipa25@gmail.com', NULL, '$2y$12$xODmOzLvhgewf3jLK2wB0OMyfj6VziPUB3qRfhw3/p4tcb4w0nrx6', NULL, NULL, NULL, '2D2W0Q2neIsA74QUtjh6dNEHpz2SrcGkTOfg0BczeNphEY2VGQgP8ujZi6aA', '2026-03-15 08:12:14', '2026-03-15 08:14:18');
 
 --
 -- Indexes for dumped tables
@@ -326,7 +327,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
