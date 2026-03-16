@@ -29,7 +29,7 @@ new class extends Component {
         <div class="flex flex-col lg:flex-row gap-14 items-center">
             <div class="w-full lg:w-1/2 lg:-ml-24">
                 <img
-                    src="/img/sekret/1.jpg"
+                    src="/img/sekret/3.jpeg"
                     alt="Sekretariat PMK"
                     loading="lazy"
                     class="w-full h-[460px] object-cover shadow-xl rounded-none"
