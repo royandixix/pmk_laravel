@@ -11,12 +11,14 @@ new #[Layout('layouts.app')] class extends Component {
 
     public Anggota $anggota;
 
-    public $name, $umur, $tanggal_lahir, $gender, $jenis, $phone, $photo, $oldPhoto;
+    public $name, $nim, $tahun_angkatan, $umur, $tanggal_lahir, $gender, $jenis, $phone, $photo, $oldPhoto;
 
     public function mount(Anggota $anggota)
     {
         $this->anggota = $anggota;
         $this->name = $anggota->name;
+        $this->nim = $anggota->nim;
+        $this->tahun_angkatan = $anggota->tahun_angkatan;
         $this->umur = $anggota->umur;
         $this->tanggal_lahir = $anggota->tanggal_lahir;
         $this->gender = $anggota->gender;
@@ -29,6 +31,8 @@ new #[Layout('layouts.app')] class extends Component {
     {
         $validated = $this->validate([
             'name' => 'required|min:3',
+            'nim' => 'required',
+            'tahun_angkatan' => 'required|numeric',
             'umur' => 'required|numeric',
             'tanggal_lahir' => 'required|date',
             'gender' => 'required',
@@ -50,6 +54,7 @@ new #[Layout('layouts.app')] class extends Component {
     }
 };
 ?>
+
 <div class="space-y-6 max-w-4xl mx-auto">
 
     <div class="flex items-center justify-between">
@@ -74,6 +79,19 @@ new #[Layout('layouts.app')] class extends Component {
                 <flux:input
                     label="Nama Lengkap"
                     wire:model="name"
+                    required
+                />
+
+                <flux:input
+                    label="NIM"
+                    wire:model="nim"
+                    required
+                />
+
+                <flux:input
+                    label="Tahun Angkatan"
+                    type="number"
+                    wire:model="tahun_angkatan"
                     required
                 />
 

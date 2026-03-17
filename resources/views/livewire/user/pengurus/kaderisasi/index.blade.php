@@ -10,7 +10,7 @@ new class extends Component {
         $this->partners = [
             [
                 'id' => 1,
-                'name' => 'RICADT YOHANIS PARABAK (KORD)',
+                'name' => 'RICADT YOHANIS PARABAK ',
                 'description' => 'Koordinator Bidang Kaderisasi yang bertanggung jawab atas pembinaan dan pengembangan anggota.',
                 'image' => '/img/pengurus/kaderisasi/RICADT YOHANIS PARABAK(KORD).jpg',
                 'category' => 'Koordinator',

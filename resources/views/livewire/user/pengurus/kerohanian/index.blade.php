@@ -11,16 +11,16 @@ new class extends Component {
             [
                 'id' => 1,
                 'name' => 'DEWINTA ANGGITA BIDANG',
-                'description' => 'Staff bidang yang berperan aktif dalam mendukung pelaksanaan teknis kegiatan ibadah dan pelayanan kerohanian.',
+                'description' => 'Koordinator Bidang Kerohanian yang memimpin dan mengkoordinasi seluruh kegiatan divisi dengan efektif.',
                 'image' => '/img/pengurus/kerohanian/DEWINTA ANGGITA BIDANG.JPG',
-                'category' => 'Staff',
+                'category' => 'Koordinator',
             ],
             [
                 'id' => 2,
-                'name' => 'INDAH DWIPUTRI SIRENDEN (KORD)',
-                'description' => 'Koordinator Bidang Kerohanian yang memimpin dan mengkoordinasi seluruh kegiatan divisi dengan efektif.',
+                'name' => 'INDAH DWIPUTRI SIRENDEN',
+                'description' => 'Staff bidang yang berperan aktif dalam mendukung pelaksanaan teknis kegiatan ibadah dan pelayanan kerohanian.',
                 'image' => '/img/pengurus/kerohanian/INDAH DWIPUTRI SIRENDEN (KORD).jpg',
-                'category' => 'Koordinator',
+                'category' => 'Staff',
             ],
             [
                 'id' => 3,
@@ -92,7 +92,6 @@ new class extends Component {
                         <h3 class="font-bold text-base md:text-lg text-white uppercase tracking-wide leading-snug">
                             {{ $partner['name'] }}
                         </h3>
-                        {{-- JABATAN LANGSUNG DI CARD --}}
                         <p class="text-blue-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mt-2">
                             {{ $partner['category'] }}
                         </p>

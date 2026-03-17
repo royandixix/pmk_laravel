@@ -38,7 +38,7 @@ new class extends Component {
             :class="isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'">
             <img src="{{ asset('img/pengurus/pengurus terpilih-min.JPG') }}" alt="PMK Universitas Dipa Makassar"
                 class="rounded-lg shadow-2xl w-full max-w-lg mb-8 border border-white/10" />
-
+<x></x>
             <div class="text-white w-full">
                 <h3 class="text-xl text-indigo-400 uppercase tracking-wide mb-6">Jumlah Anggota PMK</h3>
 

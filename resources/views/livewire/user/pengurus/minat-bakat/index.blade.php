@@ -10,7 +10,7 @@ new class extends Component {
         $this->partners = [
             [
                 'id' => 1,
-                'name' => "FIRSTSON LEOQRIN (KORD)",
+                'name' => "FIRSTSON LEOQRIN ",
                 'description' => "Koordinator Bidang Minat dan Bakat yang mewadahi pengembangan potensi anggota dalam seni dan olahraga.",
                 'image' => "/img/pengurus/mb/FIRSTSON LEOQRIN(KORD).jpg",
                 'category' => "Koordinator",

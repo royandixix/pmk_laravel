@@ -8,6 +8,12 @@
     <style>
         body {
             font-family: sans-serif;
+            font-size: 12px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         table {
@@ -21,13 +27,21 @@
             border: 1px solid #000;
         }
 
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
         }
 
-        h2 {
+        th,
+        td {
+            padding: 6px;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        .text-center {
             text-align: center;
         }
     </style>
@@ -43,9 +57,11 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
+                <th>NIM</th>
+                <th>Angkatan</th>
                 <th>Jenis Kelamin</th>
                 <th>Umur</th>
-                <th>Jenis</th>
+                <th>Jenis Anggota</th>
                 <th>Telepon</th>
             </tr>
         </thead>
@@ -54,11 +70,13 @@
 
             @foreach ($anggota as $i => $item)
                 <tr>
-                    <td>{{ $i + 1 }}</td>
+                    <td class="text-center">{{ $i + 1 }}</td>
                     <td>{{ $item->name }}</td>
+                    <td>{{ $item->nim }}</td>
+                    <td class="text-center">{{ $item->tahun_angkatan }}</td>
                     <td>{{ $item->gender }}</td>
-                    <td>{{ $item->umur }}</td>
-                    <td>{{ $item->jenis }}</td>
+                    <td class="text-center">{{ $item->umur }}</td>
+                    <td>{{ ucfirst(str_replace('_', ' ', $item->jenis)) }}</td>
                     <td>{{ $item->phone }}</td>
                 </tr>
             @endforeach

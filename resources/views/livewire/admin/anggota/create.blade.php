@@ -8,12 +8,14 @@ use App\Models\Anggota;
 new #[Layout('layouts.app')] class extends Component {
     use WithFileUploads;
 
-    public $name, $umur, $tanggal_lahir, $gender, $jenis, $phone, $photo;
+    public $name, $nim, $tahun_angkatan, $umur, $tanggal_lahir, $gender, $jenis, $phone, $photo;
 
     public function save()
     {
         $validated = $this->validate([
             'name' => 'required|min:3',
+            'nim' => 'required',
+            'tahun_angkatan' => 'required|numeric',
             'umur' => 'required|numeric',
             'tanggal_lahir' => 'required|date',
             'gender' => 'required',
@@ -33,6 +35,7 @@ new #[Layout('layouts.app')] class extends Component {
     }
 };
 ?>
+
 <div class="space-y-6 max-w-4xl mx-auto">
 
     <div class="flex items-center justify-between">
@@ -56,6 +59,21 @@ new #[Layout('layouts.app')] class extends Component {
                     label="Nama Lengkap"
                     wire:model="name"
                     placeholder="Contoh: John Doe"
+                    required
+                />
+
+                <flux:input
+                    label="NIM"
+                    wire:model="nim"
+                    placeholder="Contoh: 12345678"
+                    required
+                />
+
+                <flux:input
+                    label="Tahun Angkatan"
+                    type="number"
+                    wire:model="tahun_angkatan"
+                    placeholder="Contoh: 2022"
                     required
                 />
 

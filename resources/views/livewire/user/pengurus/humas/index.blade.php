@@ -10,7 +10,7 @@ new class extends Component {
         $this->partners = [
             [
                 'id' => 1,
-                'name' => 'GERALD REYNCHART CH.P (KORD)',
+                'name' => 'GERALD REYNCHART CH.P ',
                 'description' => 'Koordinator Bidang Humas yang bertanggung jawab mengelola komunikasi dan relasi organisasi.',
                 'image' => '/img/pengurus/humas/GERALD REYNCHART CH.P (KORD).jpg',
                 'category' => 'Koordinator',

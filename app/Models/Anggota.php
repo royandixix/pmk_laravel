@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Anggota extends Model
 {
-    protected $table = 'anggota'; 
+    protected $table = 'anggota';
 
     protected $fillable = [
         'name',
+        'nim',
+        'tahun_angkatan',
         'umur',
         'tanggal_lahir',
         'gender',
@@ -17,5 +19,5 @@ class Anggota extends Model
         'phone',
         'jenis',
     ];
-    public $timestamps = false; 
+    public $timestamps = false;
 }
