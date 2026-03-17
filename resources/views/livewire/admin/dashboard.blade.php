@@ -5,17 +5,16 @@ use App\Models\Anggota;
 use Carbon\Carbon;
 
 new class extends Component {
-
     public $totalAnggota;
     public $anggotaAktif;
     public $ulangTahunBulanIni;
     public $anggotaBaru;
 
     public $chartLabels = [];
-    public $chartData   = [];
+    public $chartData = [];
 
     public $angkatanLabels = [];
-    public $angkatanData   = [];
+    public $angkatanData = [];
 
     public function mount()
     {
@@ -23,38 +22,26 @@ new class extends Component {
 
         $this->anggotaAktif = Anggota::where('jenis', 'biasa')->count();
 
-        $this->ulangTahunBulanIni =
-            Anggota::whereMonth('tanggal_lahir', Carbon::now()->month)->count();
+        $this->ulangTahunBulanIni = Anggota::whereMonth('tanggal_lahir', Carbon::now()->month)->count();
 
-        $this->anggotaBaru =
-            Anggota::whereMonth('created_at', Carbon::now()->month)->count();
+        $this->anggotaBaru = Anggota::whereMonth('created_at', Carbon::now()->month)->count();
 
-        $monthly = Anggota::selectRaw('YEAR(created_at) as tahun, MONTH(created_at) as bulan, COUNT(*) as total')
-            ->groupBy('tahun', 'bulan')
-            ->orderBy('tahun')
-            ->orderBy('bulan')
-            ->get();
-
+        $monthly = Anggota::selectRaw('YEAR(created_at) as tahun, MONTH(created_at) as bulan, COUNT(*) as total')->groupBy('tahun', 'bulan')->orderBy('tahun')->orderBy('bulan')->get();
         $this->chartLabels = $monthly
             ->map(function ($item) {
                 return Carbon::create()
-                    ->year($item->tahun)
-                    ->month($item->bulan)
+                    ->year((int) $item->tahun) // ✅ FIX
+                    ->month((int) $item->bulan) // ✅ FIX
                     ->translatedFormat('M Y');
             })
             ->toArray();
 
-        $this->chartData = $monthly
-            ->pluck('total')
-            ->toArray();
+        $this->chartData = $monthly->pluck('total')->toArray();
 
-        $angkatan = Anggota::selectRaw('tahun_angkatan, COUNT(*) as total')
-            ->groupBy('tahun_angkatan')
-            ->orderBy('tahun_angkatan')
-            ->get();
+        $angkatan = Anggota::selectRaw('tahun_angkatan, COUNT(*) as total')->groupBy('tahun_angkatan')->orderBy('tahun_angkatan')->get();
 
         $this->angkatanLabels = $angkatan->pluck('tahun_angkatan')->toArray();
-        $this->angkatanData   = $angkatan->pluck('total')->toArray();
+        $this->angkatanData = $angkatan->pluck('total')->toArray();
     }
 };
 
@@ -149,126 +136,141 @@ new class extends Component {
     </div>
 
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('livewire:navigated', () => {
-            initCharts();
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initCharts();
-        });
-
-        function initCharts() {
-            const charts = [
-                'lineChartInstance', 
-                'barChartInstance', 
-                'donutChartInstance', 
-                'angkatanChartInstance'
-            ];
-            
-            charts.forEach(chart => {
-                if (window[chart]) window[chart].destroy();
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener('livewire:navigated', () => {
+                initCharts();
             });
 
-            const commonOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: { color: '#94a3b8' }
-                    }
-                },
-                scales: {
-                    y: {
-                        ticks: { color: '#64748b' },
-                        grid: { color: 'rgba(255,255,255,0.05)' }
-                    },
-                    x: {
-                        ticks: { color: '#64748b' },
-                        grid: { display: false }
-                    }
-                }
-            };
+            document.addEventListener('DOMContentLoaded', () => {
+                initCharts();
+            });
 
-            const lineEl = document.getElementById('lineChart');
-            if (lineEl) {
-                window.lineChartInstance = new Chart(lineEl, {
-                    type: 'line',
-                    data: {
-                        labels: @json($chartLabels),
-                        datasets: [{
-                            label: 'Anggota',
-                            data: @json($chartData),
-                            borderColor: '#2dd4bf',
-                            backgroundColor: 'rgba(45,212,191,0.1)',
-                            fill: true,
-                            tension: 0.4
-                        }]
-                    },
-                    options: commonOptions
+            function initCharts() {
+                const charts = [
+                    'lineChartInstance',
+                    'barChartInstance',
+                    'donutChartInstance',
+                    'angkatanChartInstance'
+                ];
+
+                charts.forEach(chart => {
+                    if (window[chart]) window[chart].destroy();
                 });
-            }
 
-            const barEl = document.getElementById('barChart');
-            if (barEl) {
-                window.barChartInstance = new Chart(barEl, {
-                    type: 'bar',
-                    data: {
-                        labels: @json($chartLabels),
-                        datasets: [{
-                            label: 'Pendaftar',
-                            data: @json($chartData),
-                            backgroundColor: '#38bdf8',
-                            borderRadius: 4
-                        }]
+                const commonOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#94a3b8'
+                            }
+                        }
                     },
-                    options: commonOptions
-                });
-            }
-
-            const angkatanEl = document.getElementById('angkatanChart');
-            if (angkatanEl) {
-                window.angkatanChartInstance = new Chart(angkatanEl, {
-                    type: 'bar',
-                    data: {
-                        labels: @json($angkatanLabels),
-                        datasets: [{
-                            label: 'Jumlah per Angkatan',
-                            data: @json($angkatanData),
-                            backgroundColor: '#a78bfa',
-                            borderRadius: 4
-                        }]
-                    },
-                    options: {
-                        ...commonOptions,
-                        indexAxis: 'y' // Membuat diagram balok horizontal
-                    }
-                });
-            }
-
-            const donutEl = document.getElementById('donutChart');
-            if (donutEl) {
-                window.donutChartInstance = new Chart(donutEl, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Aktif', 'Nonaktif'],
-                        datasets: [{
-                            data: [{{ $anggotaAktif }}, {{ $totalAnggota - $anggotaAktif }}],
-                            backgroundColor: ['#2dd4bf', '#334155'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'bottom', labels: { color: '#94a3b8' } }
+                    scales: {
+                        y: {
+                            ticks: {
+                                color: '#64748b'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.05)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#64748b'
+                            },
+                            grid: {
+                                display: false
+                            }
                         }
                     }
-                });
+                };
+
+                const lineEl = document.getElementById('lineChart');
+                if (lineEl) {
+                    window.lineChartInstance = new Chart(lineEl, {
+                        type: 'line',
+                        data: {
+                            labels: @json($chartLabels),
+                            datasets: [{
+                                label: 'Anggota',
+                                data: @json($chartData),
+                                borderColor: '#2dd4bf',
+                                backgroundColor: 'rgba(45,212,191,0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: commonOptions
+                    });
+                }
+
+                const barEl = document.getElementById('barChart');
+                if (barEl) {
+                    window.barChartInstance = new Chart(barEl, {
+                        type: 'bar',
+                        data: {
+                            labels: @json($chartLabels),
+                            datasets: [{
+                                label: 'Pendaftar',
+                                data: @json($chartData),
+                                backgroundColor: '#38bdf8',
+                                borderRadius: 4
+                            }]
+                        },
+                        options: commonOptions
+                    });
+                }
+
+                const angkatanEl = document.getElementById('angkatanChart');
+                if (angkatanEl) {
+                    window.angkatanChartInstance = new Chart(angkatanEl, {
+                        type: 'bar',
+                        data: {
+                            labels: @json($angkatanLabels),
+                            datasets: [{
+                                label: 'Jumlah per Angkatan',
+                                data: @json($angkatanData),
+                                backgroundColor: '#a78bfa',
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            ...commonOptions,
+                            indexAxis: 'y' // Membuat diagram balok horizontal
+                        }
+                    });
+                }
+
+                const donutEl = document.getElementById('donutChart');
+                if (donutEl) {
+                    window.donutChartInstance = new Chart(donutEl, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Aktif', 'Nonaktif'],
+                            datasets: [{
+                                data: [{{ $anggotaAktif }}, {{ $totalAnggota - $anggotaAktif }}],
+                                backgroundColor: ['#2dd4bf', '#334155'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        color: '#94a3b8'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             }
-        }
-    </script>
+        </script>
     @endpush
 </div>
