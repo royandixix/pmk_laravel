@@ -29,10 +29,10 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:pt-4">
-                <flux:button href="#bergabung" variant="primary"
+                {{-- <flux:button href="#bergabung" variant="primary"
                     class="w-full sm:w-auto justify-center px-8 sm:px-10 py-3 sm:py-4 text-sm sm:text-lg font-bold shadow-xl">
                     Bergabung Sekarang
-                </flux:button>
+                </flux:button> --}}
 
                 {{-- Tombol Hubungi Kami → WA hardcode --}}
                 <a href="https://wa.me/6281356559869?text=Halo%20PMK%20UNDIPA%2C%20saya%20ingin%20menghubungi%20kalian."
